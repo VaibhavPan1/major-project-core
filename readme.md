@@ -25,7 +25,8 @@ CREATE TABLE files (
 8. Link truffle project to ganache 
 
 #Steps to create and deploy smart contract using truffle: 
-1. start truffle project using "truffle init"
+smart-contract directory is a truffle directory(use this or create your own truffle directory )
+1. start truffle project using "truffle init" inside a directory(eg smart-contract)
 2. write the smart contract in contracts folder
 3. truffle compile
 4. uncomment networks config in truffle-config.js file
@@ -36,3 +37,4 @@ module.exports = function(deployer) {
   deployer.deploy(MyContract, "Hello, World!"); // Constructor argument
 };
 6. deploy contract to ganache using truffle migrate --network development
+7. fetch abi, contract address from build directory
