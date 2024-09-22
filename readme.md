@@ -31,10 +31,11 @@ smart-contract directory is a truffle directory(use this or create your own truf
 3. truffle compile
 4. uncomment networks config in truffle-config.js file
 5. write migration code in migrations, eg:
-const MyContract = artifacts.require("MyContract");
+const FileStorage = artifacts.require("FileStorage");
 
-module.exports = function(deployer) {
-  deployer.deploy(MyContract, "Hello, World!"); // Constructor argument
+module.exports = function (deployer) {
+  deployer.deploy(FileStorage);
 };
+
 6. deploy contract to ganache using truffle migrate --network development
 7. fetch abi, contract address from build directory
