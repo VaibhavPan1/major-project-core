@@ -1,18 +1,17 @@
 import ipfshttpclient
 
 class IPFSHandler:
-    def __init__(self, ipfs_url = "/ip4/127.0.0.1/tcp/5001"):
+    def __init__(self, ipfs_url = "/ip4/127.0.0.1/tcp/5001"): #multiformat url
         self.client = ipfshttpclient.connect(ipfs_url)
         print("connected to ipfs")
     
     def upload_file(self, file_path):
         result = self.client.add(file_path)
-        print("result = ", result)
+        
+        # print("result = ", result)
 
         #for directory uploads
         if isinstance(result, list):
-            print(result)
-            print(result[-1]['Hash'])
             return result[-1]['Hash']
         
         #for file uploads
