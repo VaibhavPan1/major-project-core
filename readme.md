@@ -1,17 +1,26 @@
 1. Run IPFS daemon, local ganache, mysql server
-2. uncomment network config in truffle config file 
-3. config file for mysql in config directory
+2. uncomment network config in truffle config file (ignore if already uncommented)
+3. create config > config.json directory at root level of project
+config.json
+{
+    "mysql": {
+      "host": "localhost",
+      "user": "", //your username
+      "password": "", // your password
+      "database": "" // your database name
+    }
+}
 
 
-4. create a table files in database of choice using following command: 
+4. create a table 'files' in database of choice using following command: 
 CREATE TABLE files (
     id INT AUTO_INCREMENT PRIMARY KEY,
     file_name VARCHAR(255) NOT NULL,
     cid VARCHAR(255) NOT NULL
 );
 
-5. init ipfs node (use version 0.7 and repo version 10)
-6. solidity compiler (solc-js) version must match contract version
+5. init ipfs node (use version 0.7.0 and repo version 10)
+6. solidity compiler (solc-js) version must match contract version(0.8.0)
 7. Solidity compiler versions 0.5.x and above no longer use the constant keyword in the ABI. Instead, the correct field is stateMutability: "view" or stateMutability: "pure" for functions that don’t modify or read the state.
 8. Link truffle project to ganache 
 
