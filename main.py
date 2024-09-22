@@ -3,16 +3,17 @@ from eth_module.contract_handler import ContractHandler
 from db_module.db_handler import DBHandler
 import json
 
-
+#create config.json file in config folder before running this file
 with open('config/config.json', 'r') as config_file:
     config = json.load(config_file)
 
 ipfs_handler = IPFSHandler()
 db_handler = DBHandler(**config['mysql'])
-contract_handler = ContractHandler(account_address="0x167028Dc3170955f511B4053391cD4893EF62Ef0") #leave it blank for default account on ganache
+contract_handler = ContractHandler() #leave it blank for default account on ganache
 
 
-#optional step
+#(compile, deploy, migrate your contract using truffle, copy it's abi and contract_address from build file)
+#WARNING: DON'T USE THIS ABI AND CONTRACT ADDRESS OR BYTECODE, DEPLOY YOUR OWN CONTRACT ON GANACHE USING TURUFFLE)
 abi = [
     {
         "inputs": [

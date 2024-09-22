@@ -8,5 +8,6 @@ tests.py
 db_module/__pycache__/
 eth_module/__pycache__/
 ipfs_module/__pycache__/
-config/config.json/
+config/config.json
 *.pyc
+file3.txt
