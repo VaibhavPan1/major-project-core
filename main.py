@@ -104,17 +104,16 @@ def retrieve_file(file_name, output_path):
 
 if __name__ == '__main__':
     
-    upload_file('hello')
+    #it is possible to upload a directory or a file but uploading a directory is preferred
+    upload_file('hello') 
 
     retrieve_file('hello', 'download/')
 
 """
-ISSUES: 
+KNOWN ISSUES: 
 1. Contract deployment using python is pending. Temporary fix: compiled and deployed on Ganache using Truffle.
 2. IPFS version
-3. Losing file details on uploading to ipfs(main issue)
-(FIX: upload the directory in which file is contained, fixed using if-else 🙂)
-4. Removing previous file details from database and pointing it to newer CID
+3. Removing previous file details from database and pointing it to newer CID
 
 
 """
