@@ -1,6 +1,6 @@
 /download/
 /hello/
-/smart-contract/build/
+/smart-contract/build/contracts
 file.txt
 hello.txt
 *.docx
