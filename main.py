@@ -79,7 +79,7 @@ contract_address = "0x6d198Ad47FcbA2b7344eAC2bf4d13125Ac38eb34"
 def upload_file(file_path):
     file_name = file_path.split('/')[-1]
     db_cid = db_handler.retrieve_file(file_name)
-    if db_cid is not None:
+    if db_cid is not None: #if file with same name exists in db, choose to replace or abort
         print(f"File name with {file_name} already exists. Do you wish to replace file?")
         option = input("Press Y to continue, press any key to abort..")
         if option == "Y" or option == "y":
@@ -110,10 +110,10 @@ def upload_file(file_path):
 
 def retrieve_file(file_name, output_path):
     cid = db_handler.retrieve_file(file_name)
-    print(f"CID retrieved from mySql: {cid}")
+    # print(f"CID retrieved from mySql: {cid}")
 
     cid2 = contract_handler.retrieve_file_hash(file_name=file_name, abi=abi, contract_address= contract_address)
-    print(f"cid1 = {cid}\ncid2 = {cid2}")
+    print(f"CID from Database = {cid}\nCID from Smart Contract = {cid2}")
 
     #match cid from smartcontract and database
     if (cid and cid2) and (cid == cid2):
