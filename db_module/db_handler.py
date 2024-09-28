@@ -21,3 +21,14 @@ class DBHandler:
         self.cursor.execute(query, (file_name,))
         result = self.cursor.fetchone()
         return result[0] if result else None
+    
+    def get_file_information(self, file_name):
+        query = "SELECT * from files WHERE file_name = %s"
+        self.cursor.execute(query, (file_name,))
+        result = self.cursor.fetchall()
+        return result
+    
+    def store_dublicate(self, file_name, cid):
+        query = "UPDATE files SET cid = %s WHERE file_name = %s"
+        self.cursor.execute(query, (cid, file_name))
+        self.conn.commit()

@@ -77,17 +77,36 @@ bytecode = '0x608060405234801561001057600080fd5b5061065b806100206000396000f3fe60
 contract_address = "0x6d198Ad47FcbA2b7344eAC2bf4d13125Ac38eb34"
 
 def upload_file(file_path):
-    cid = ipfs_handler.upload_file(file_path)
-    print(f"File uploaded to IPFS, CID: {cid}")
-
-    #storing details in database
     file_name = file_path.split('/')[-1]
-    db_handler.store_file(file_name,cid)
-    print(f"File stored in MySQL: {file_name} -> {cid}")
+    db_cid = db_handler.retrieve_file(file_name)
+    if db_cid is not None:
+        print(f"File name with {file_name} already exists. Do you wish to replace file?")
+        option = input("Press Y to continue, press any key to abort..")
+        if option == "Y" or option == "y":
+            cid = ipfs_handler.upload_file(file_path)
+            print(f"File uploaded to IPFS, CID: {cid}")
 
-    #storing detalis on ethreum
-    contract_handler.store_file_hash(file_name, cid, abi, contract_address)
-    print("file hash stored on ethreum")
+            #storing details in database
+            db_handler.store_dublicate(file_name,cid)
+            print(f"File stored in MySQL: {file_name} -> {cid}")
+
+            #storing detalis on ethreum
+            contract_handler.store_file_hash(file_name, cid, abi, contract_address)
+            print("file hash stored on ethreum")
+        else:
+            print("Operation aborted...")
+    else:
+        cid = ipfs_handler.upload_file(file_path)
+        print(f"File uploaded to IPFS, CID: {cid}")
+
+        #storing details in database
+        db_handler.store_file(file_name,cid)
+        print(f"File stored in MySQL: {file_name} -> {cid}")
+
+        #storing detalis on ethreum
+        contract_handler.store_file_hash(file_name, cid, abi, contract_address)
+        print("file hash stored on ethreum")
+    
 
 def retrieve_file(file_name, output_path):
     cid = db_handler.retrieve_file(file_name)
@@ -105,9 +124,9 @@ def retrieve_file(file_name, output_path):
 if __name__ == '__main__':
     
     #it is possible to upload a directory or a file but uploading a directory is preferred
-    upload_file('hello') 
+    upload_file('hello2') 
 
-    retrieve_file('hello', 'download/')
+    retrieve_file('hello2', 'download/')
 
 """
 KNOWN ISSUES: 
