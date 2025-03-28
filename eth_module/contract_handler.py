@@ -1,5 +1,4 @@
-import solcx
-import solcx.install
+
 from web3 import Web3
 import json
 
@@ -14,36 +13,7 @@ class ContractHandler:
         self.account_address = account_address if account_address else self.web3.eth.accounts[0]
         self.contract_path = contract_path
 
-    def compiler_contract(self, contract_path):
-        with open(contract_path, 'r') as file:
-            contract_source = file.read()
-        solcx.install_solc('0.8.0')
-        compiled_sol = solcx.compile_standard({
-            "language":"Solidity",
-            "sources":{
-                "FileStorage.sol":{"content": contract_source}
-            },
-            "settings":{
-                "outputSelection":{
-                    "*":{"*":["abi","metadata","evm.bytecode"]}
-                }
-            }
-        }) 
 
-        abi = compiled_sol['contracts']['FileStorage.sol']['FileStorage']['abi']
-        print("abi = ", abi)
-        bytecode = compiled_sol['contracts']['FileStorage.sol']['FileStorage']['evm']['bytecode']['object']
-        print("bytecode = ", bytecode)
-        return abi, bytecode
-    
-    def deploy_contract(self, abi, bytecode):
-        FileStorage = self.web3.eth.contract(abi=abi, bytecode=bytecode)
-        tx_hash = FileStorage.constructor().transact()
-        tx_receipt = self.web3.eth.wait_for_transaction_receipt(tx_hash)
-        contract_address = tx_receipt.contractAddress
-        print(f"Contract deployed at address: {contract_address}")
-        return contract_address
-    
     def store_file_hash(self, file_name, cid, abi, contract_address):
         contract = self.web3.eth.contract(address=contract_address, abi=abi)
 
