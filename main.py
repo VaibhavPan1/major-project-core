@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-import os
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
@@ -105,68 +104,6 @@ db_handler = DBHandler(**config['mysql'])
 contract_handler = ContractHandler() #leave it blank for default account on ganache
 enc_handler = CryptoVault() #leave it blank for default account on ganache
 
-
-#(compile, deploy, migrate your contract using truffle, copy it's abi and contract_address from build file)
-#WARNING: DON'T USE THIS ABI AND CONTRACT ADDRESS OR BYTECODE, DEPLOY YOUR OWN CONTRACT ON GANACHE USING TURUFFLE)
-# abi = [
-#     {
-#         "inputs": [
-#             {
-#                 "internalType": "string",
-#                 "name": "fileName",
-#                 "type": "string"
-#             },
-#             {
-#                 "internalType": "string",
-#                 "name": "fileHash",
-#                 "type": "string"
-#             }
-#         ],
-#         "name": "storeFile",
-#         "outputs": [],
-#         "stateMutability": "nonpayable",
-#         "type": "function"
-#     },
-#     {
-#         "inputs": [
-#             {
-#                 "internalType": "string",
-#                 "name": "fileName",
-#                 "type": "string"
-#             }
-#         ],
-#         "name": "getFileHash",
-#         "outputs": [
-#             {
-#                 "internalType": "string",
-#                 "name": "",
-#                 "type": "string"
-#             }
-#         ],
-#         "stateMutability": "view",
-#         "type": "function"
-#     },
-#     {
-#         "inputs": [
-#             {
-#                 "internalType": "string",
-#                 "name": "",
-#                 "type": "string"
-#             }
-#         ],
-#         "name": "fileHashes",
-#         "outputs": [
-#             {
-#                 "internalType": "string",
-#                 "name": "",
-#                 "type": "string"
-#             }
-#         ],
-#         "stateMutability": "view",
-#         "type": "function"
-#     }
-# ]
-# contract_address = "0xb2100aDf3B5b8c48D2224f0B23095e8c58933E37"
 contract_address = os.getenv("CONTRACT_ADDRESS")
 abi = os.getenv("ABI")
 
@@ -220,9 +157,9 @@ def retrieve_file(file_name, output_path):
 if __name__ == '__main__':
 
     judge_private, judge_public = enc_handler.generate_rsa_key_pair()
-    print(judge_private, judge_public )
+    # print(judge_private, judge_public )
     lawyer_private, lawyer_public = enc_handler.generate_rsa_key_pair()
-    print(lawyer_private, lawyer_public)
+    # print(lawyer_private, lawyer_public)
 
     file_path = 'evidence.txt'
     recipients = {
